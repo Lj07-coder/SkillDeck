@@ -1,0 +1,226 @@
+/* ===== Dashboard Section ===== */
+#dashboardSection {
+  display: none;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: #f9f9fb;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 12px 30px;
+  transition: box-shadow 0.3s ease;
+}
+.navbar:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #2575fc;
+  transition: transform 0.3s ease;
+}
+.nav-brand:hover {
+  transform: scale(1.05);
+}
+
+.search-bar {
+  background: #f1f1f1;
+  padding: 8px 22px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+.search-bar:hover {
+  background: #e8e8e8;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+}
+
+.nav-btn {
+  border: none;
+  background: #2575fc;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.nav-btn:hover {    
+  background: #1a5cd8;
+  transform: translateY(-2px);
+}
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;   /* spacing between buttons + avatar */
+}
+
+.user-avatar {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #eee;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: rotate(3deg) scale(1.1);
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2575fc;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.hero-badge:hover {
+  background: #1a5cd8;
+  transform: scale(1.05);
+}
+
+.hero-title {
+  font-size: 36px;
+  margin: 20px 0 10px;
+}
+
+/* 🎨 Animated Gradient Text for CONNECT */
+.gradient-text {
+  background: linear-gradient(90deg, #1a73e8, #2575fc, #4dabf7, #1a73e8);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  font-weight: 700;
+  animation: gradientMove 4s ease infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.hero-actions button {
+  margin: 5px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: #2575fc;
+  color: #fff;
+}
+.primary-btn:hover {
+  background: #1a5cd8;
+  transform: translateY(-2px);
+}
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.secondary-btn {
+  background: #eee;
+  color: #333;
+}
+.secondary-btn:hover {
+  background: #ddd;
+  transform: translateY(-2px);
+}
+.secondary-btn:active {
+  transform: translateY(0);
+}
+
+/* Features Section */
+.features-section {
+  padding: 50px 20px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+  font-size: 24px;
+  color: #2575fc;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.feature-card:hover .feature-icon {
+  transform: scale(1.2);
+  color: #1a5cd8;
+}
+
+/* Fade-in animation for sections */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-section, .features-section {
+  animation: fadeInUp 0.8s ease both;
+}

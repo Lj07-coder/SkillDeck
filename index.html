@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SkillDeck: Place Your Cards. Build Your Future. </title>
+
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="portfolio.css">
+  <link rel="stylesheet" href="others.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    form label { display:  ; font-weight:600; margin-top:10px; }
+    form input, form textarea {
+      width:100%; padding:8px; margin-top:6px; box-sizing:border-box; font-size:14px;
+      border:1px solid #ccc; border-radius:4px;
+    }
+    form textarea { resize:vertical; min-height:80px; }
+    fieldset { border:1px solid #ddd; padding:10px 30px; margin-top:12px; border-radius:6px; width:500; }
+    fieldset legend { font-weight:700; padding:0 6px; }
+    .small-help { font-size:13px; color:#666; margin-top:4px; }
+
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000; }
+    .modal-content { background:#fff; padding:20px; border-radius:10px; max-width:700px; width:90%; max-height:80vh; overflow-y:auto; position:relative; }
+    .modal-close { position:absolute; top:10px; right:15px; font-size:20px; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Login/Signup Section ===== -->
+  <div id="authSection">
+    <div class="wrapper">
+      <h1>SkillDeck</h1>
+      <h2 id="authHeader">Signup</h2>
+
+      <!-- Signup Form -->
+      <form id="signupForm" onsubmit="signup(event)">
+        <div class="input-box">
+          <input type="text" id="signupFirstName" placeholder="First Name" required />
+        </div>
+        <div class="input-box">
+          <input type="text" id="signupLastName" placeholder="Last Name" required />
+        </div>
+        <div class="input-box">
+          <input type="email" id="signupEmail" placeholder="Email" required />
+        </div>
+        <div class="input-box">
+          <input type="password" id="signupPassword" placeholder="Password" required />
+        </div>
+        <button type="submit" class="btn">Signup</button>
+        <p class="register-link">Already have an account?
+          <button type="button" class="link-btn" id="gotoLogin">Login here</button>
+        </p>
+      </form>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="login(event)" style="display:none;">
+        <div class="input-box">
+          <input type="email" id="loginEmail" placeholder="Email" required />
+        </div>
+        <div class="input-box">
+          <input type="password" id="loginPassword" placeholder="Password" required />
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <p class="register-link">Don't have an account?
+          <button type="button" class="link-btn" id="gotoSignup">Signup here</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Dashboard Section ===== -->
+  <div id="dashboardSection" style="display:none;">
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+          <span class="brand-name">SkillDeck</span>
+        </div>
+        <div class="nav-center">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search portfolios, skills, or projects...">
+          </div>
+        </div>
+        <div class="nav-right">
+          <button class="nav-btn filter-btn"><i class="fas fa-filter"></i> Filter</button>
+          <button class="nav-btn add-portfolio-btn" id="createPortfolioBtn"><i class="fas fa-plus"></i> Add Portfolio</button>
+          <button class="nav-btn login-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+          <div class="user-avatar"><i class="fas fa-user"></i></div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="dashboard-main">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-badge"><i class="fas fa-star"></i><span>Discover Amazing Talent</span></div>
+        <h1 class="hero-title">
+  Showcase Your Skills, <span class="gradient-text">Connect</span><br>with Opportunities
+</h1>
+
+        <p class="hero-subtitle">Join thousands of students and professionals showcasing their projects, certifications, and skills in beautiful portfolio cards.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" id="createPortfolioBtn2">Create Your Portfolio <i class="fas fa-arrow-right"></i></button>
+          <button class="secondary-btn" id="viewPortfoliosBtn">Browse Portfolios</button>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-section">
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-palette"></i></div>
+            <h3>Beautiful Portfolios</h3>
+            <p>Create stunning portfolio cards that showcase your work professionally</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-users"></i></div>
+            <h3>Connect & Network</h3>
+            <p>Discover talented individuals and connect with like-minded professionals</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Boost Your Career</h3>
+            <p>Get discovered by employers and unlock new opportunities</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== Portfolio Section ===== -->
+  <div id="portfolioSection" style="display:none;">
+    <h2>Create / Update Portfolio</h2>
+
+    <!-- ✅ Everything is now inside one form -->
+    <form id="projectForm" onsubmit="addProject(event)">
+      <!-- Personal Info -->
+      <fieldset>
+        <legend>Personal Info</legend>
+        <label>Upload Profile Photo <input type="file" id="profilePhoto" accept="image/*"></label>
+        <button type="button" onclick="saveProfilePhoto()">Save Profile Photo</button>
+        <label>Skills</label>
+        <div id="skillsInputWrapper" style="display:flex; flex-wrap:wrap; gap:6px; border:1px solid #ccc; padding:6px; border-radius:6px;">
+          <input type="text" id="skillsInput" placeholder="Type a skill and press Enter" style="border:none; outline:none; flex:1; min-width:120px;">
+        </div>
+        <label>Achievements <textarea id="portfolioAchievements"></textarea></label>
+        <button type="button" onclick="savePortfolioAchievements()">Save Achievements</button>
+        <label>Upload Resume <input type="file" id="resumeFile" accept=".pdf,.doc,.docx"></label>
+        <button type="button" onclick="saveResume()">Save Resume</button>
+      </fieldset>
+
+      <!-- Project Info -->
+      <fieldset>
+        <legend>Project Info</legend>
+        <label>Project Title <input type="text" id="projectTitle" required></label>
+        <label>Description <textarea id="projectDesc" required></textarea></label>
+        <label>Project Link <input type="url" id="projectLink"></label>
+      </fieldset>
+
+      <!-- Contact -->
+      <fieldset>
+        <legend>Contact</legend>
+        <label>Phone <input type="tel" id="projectPhone" required></label>
+        <label>Work Email <input type="email" id="projectWorkEmail" required></label>
+      </fieldset>
+
+      <!-- Technical -->
+      <fieldset>
+        <legend>Technical</legend>
+        <label>Technologies used <input type="text" id="projectTech" required></label>
+        <label>Completion Date <input type="date" id="completionDate" required></label>
+        <label><input type="checkbox" name="projectType" value="Web"> Web</label>
+        <label><input type="checkbox" name="projectType" value="Mobile"> Mobile</label>
+        <label><input type="checkbox" name="projectType" value="AI"> AI</label>
+        <label><input type="checkbox" name="projectType" value="Other"> Other</label>
+      </fieldset>
+
+      <!-- Media -->
+      <fieldset>
+        <legend>Media</legend>
+        <label>Upload Image <input type="file" id="projectFile" accept="image/*" required></label>
+      </fieldset>
+
+      <div style="margin-top:10px;">
+        <button type="submit">Save Portfolio</button>
+        <button type="button" id="backFromPortfolioBtn">⬅ Back</button>
+      </div>
+    </form>
+
+    <h3>Your Projects</h3>
+    <div id="projectList"></div>
+  </div>
+
+<!-- ===== Others' Portfolios Section ===== -->
+<div id="othersSection" style="display:none;">
+  <h2>Explore Other Portfolios</h2>
+  
+  <!-- Filter (optional) -->
+  <div class="filter-box">
+    <h3>Filter by Skills</h3>
+    <div id="skillsFilter"></div>
+    <button class="primary-btn" id="applyFilterBtn">Apply Filter</button>
+  </div>
+
+  <!-- Portfolio Cards Grid -->
+  <div class="portfolios-grid" id="othersList">
+    <!-- JS will insert portfolio cards here -->
+  </div>
+
+  <br>
+  <button class="secondary-btn" id="backFromOthersBtn">← Back</button>
+</div>
+
+
+  <!-- Modal -->
+  <div id="portfolioModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">✖</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./app.js"></script>
+
+  <script>
+    document.getElementById("gotoLogin").addEventListener("click", () => {
+      document.getElementById("signupForm").style.display = "none";
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("authHeader").textContent = "Login";
+    });
+    document.getElementById("gotoSignup").addEventListener("click", () => {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("signupForm").style.display = "block";
+      document.getElementById("authHeader").textContent = "Signup";
+    });
+    document.getElementById("createPortfolioBtn2").addEventListener("click", () => {
+      document.getElementById("dashboardSection").style.display = "none";
+      document.getElementById("portfolioSection").style.display = "block";
+    });
+    function closeModal() {
+      document.getElementById("portfolioModal").style.display = "none";
+      document.getElementById("modalContent").innerHTML = "";
+    }
+  </script>
+</body>
+</html>

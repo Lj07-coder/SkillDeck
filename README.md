@@ -6,7 +6,7 @@ It perfectly performs CRUD operations and has a good security using the firebase
 
 ---
 
-## 🌟 Features  
+## 🌟 Features:-  
 
 - 👩‍🎓 **Student Portfolios** – Showcase education, skills, projects, certifications, and achievements.  
 - 🖼️ **Project Gallery** – Students can upload project descriptions, links, or media to highlight practical work.  
